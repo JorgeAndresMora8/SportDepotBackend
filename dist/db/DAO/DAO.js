@@ -34,8 +34,22 @@ class Container {
     }
     search(params) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.schema.find({ $text: { $search: params.category } });
-            return resp;
+            // const resp = await this.schema.find({ $text: { $search: params.category } })
+            // return resp
+            let mongoDbParams = [];
+            if (params.name !== "" && params.name !== null && params.name !== undefined)
+                mongoDbParams.push({ $text: { $search: params.name } });
+            if (params.category !== "")
+                mongoDbParams.push({ category: params.category });
+            console.log(mongoDbParams);
+            if (mongoDbParams.length >= 1) {
+                const response = yield this.schema.find({ $and: mongoDbParams });
+                return response;
+            }
+            else {
+                const response = yield this.schema.find({}, { _id: 0, __v: 0 }).lean();
+                return response;
+            }
         });
     }
     create(data) {
