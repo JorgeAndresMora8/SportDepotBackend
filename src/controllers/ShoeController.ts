@@ -4,6 +4,7 @@ import { Shoe } from "../types/Shoe.types"
 import { validateShoe } from "../utilities/validateShoe"
 
 export const getAllShoes = async (req: Request, res: Response) => {
+    // console.log(req.cookies['access_token'])
     const allShoes = await shoeService.getShoes()
     res.status(200).json(allShoes)
 }
@@ -20,13 +21,13 @@ export const searchShoes = async (req: Request, res: Response) => {
 }
 
 export const createShoe = async (req: Request, res: Response) => { 
-    
+
     try{ 
         const validatedData = validateShoe(req.body)
         await shoeService.createShoe(validatedData as Shoe)
         res.status(200).json({ message: "shoe added succesfully" })
     }catch(error){ 
-        console.log(error)
+        // console.log(error)
         res.status(400).json({ data :'error' })
     }
     

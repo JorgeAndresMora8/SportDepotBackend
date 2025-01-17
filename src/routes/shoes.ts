@@ -10,6 +10,8 @@ import {
 
 export const ShoeRouter = Router()
 
+
+
 //Get all shoes
 ShoeRouter.get('/', getAllShoes)
 ShoeRouter.get('/search', searchShoes)

@@ -1,12 +1,14 @@
-import { Container, ShoeDAO } from "../../db/DAO/DAO";
+
+import { shoeDAO } from "../../db/DAO/DAO";
+import ShoeDAO from "../../db/DAO/ShoeDAO";
 import { Shoe } from "../../types/Shoe.types";
 
 
 export class Repository { 
 
-    shoeDao: Container
+    shoeDao: ShoeDAO
 
-    constructor(shoeDao: Container){ 
+    constructor(shoeDao: ShoeDAO){ 
         this.shoeDao = shoeDao;
     }
 
@@ -42,4 +44,4 @@ export class Repository {
     }
 }
 
-export const shoeRepository = new Repository(ShoeDAO)
+export const shoeRepository = new Repository(shoeDAO)

@@ -10,7 +10,7 @@ interface ENV_VARS {
 
 export const getEnv = (): ENV_VARS => { 
     return { 
-        MONGODB_URI: process.env.MONGODB_URI!
+        MONGODB_URI: process.env.MONGODB_URI!,
     }
 }
 
