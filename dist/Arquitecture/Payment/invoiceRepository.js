@@ -9,48 +9,36 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.shoeRepository = exports.Repository = void 0;
+exports.invoiceRepository = exports.Repository = void 0;
 const DAO_1 = require("../../db/DAO/DAO");
 class Repository {
-    constructor(shoeDao) {
-        this.shoeDao = shoeDao;
+    constructor(paymentDAO) {
+        this.paymentDAO = paymentDAO;
     }
-    getAllShoes() {
+    getInvoiceByUserId(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.findAll();
+            const resp = yield this.paymentDAO.findByUserId(userId);
             return resp;
         });
     }
-    getShoeById(id) {
+    getAllInvoices() {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.findById(id);
+            const resp = yield this.paymentDAO.findAll();
             return resp;
         });
     }
-    addShoe(data) {
+    getInvoice(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.create(data);
+            const resp = yield this.paymentDAO.findById(id);
             return resp;
         });
     }
-    searchShoes(params) {
+    saveInvoice(invoice) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.search(params);
-            return resp;
-        });
-    }
-    updateShoe(id, data) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.update(id, data);
-            return resp;
-        });
-    }
-    deleteShoe(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.delete(id);
+            const resp = yield this.paymentDAO.create(invoice);
             return resp;
         });
     }
 }
 exports.Repository = Repository;
-exports.shoeRepository = new Repository(DAO_1.shoeDAO);
+exports.invoiceRepository = new Repository(DAO_1.paymentDAO);

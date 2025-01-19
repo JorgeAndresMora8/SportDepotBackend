@@ -17,6 +17,12 @@ class InvoiceService {
         const resp = await this.repository.getAllInvoices()
         return resp
     }
+
+    async getInvoiceByUserId(userId:string): Promise<any[]>{ 
+        const resp = await this.repository.getInvoiceByUserId(userId)
+        // return resp.filter(invoice => invoice.status === 'successfull')
+        return resp
+    }
     async getInvoiceById(id: string){ 
         const resp = await this.repository.getInvoice(id)
         return resp

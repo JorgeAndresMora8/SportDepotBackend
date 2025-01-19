@@ -9,25 +9,37 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.shoeRepository = exports.Repository = void 0;
+exports.userRepository = exports.Repository = void 0;
 const DAO_1 = require("../../db/DAO/DAO");
 class Repository {
     constructor(shoeDao) {
         this.shoeDao = shoeDao;
     }
-    getAllShoes() {
+    getAllUsers() {
         return __awaiter(this, void 0, void 0, function* () {
             const resp = yield this.shoeDao.findAll();
             return resp;
         });
     }
-    getShoeById(id) {
+    getUserById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const resp = yield this.shoeDao.findById(id);
             return resp;
         });
     }
-    addShoe(data) {
+    getUserByName(name) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const resp = yield this.shoeDao.findByName(name);
+            return resp;
+        });
+    }
+    getUserByEmail(email) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const resp = yield this.shoeDao.findByEmail(email);
+            return resp;
+        });
+    }
+    createUser(data) {
         return __awaiter(this, void 0, void 0, function* () {
             const resp = yield this.shoeDao.create(data);
             return resp;
@@ -39,13 +51,13 @@ class Repository {
             return resp;
         });
     }
-    updateShoe(id, data) {
+    updateUser(id, data) {
         return __awaiter(this, void 0, void 0, function* () {
             const resp = yield this.shoeDao.update(id, data);
             return resp;
         });
     }
-    deleteShoe(id) {
+    deleteUser(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const resp = yield this.shoeDao.delete(id);
             return resp;
@@ -53,4 +65,4 @@ class Repository {
     }
 }
 exports.Repository = Repository;
-exports.shoeRepository = new Repository(DAO_1.shoeDAO);
+exports.userRepository = new Repository(DAO_1.userDAO);

@@ -8,7 +8,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const getEnv = () => {
     return {
-        MONGODB_URI: process.env.MONGODB_URI
+        MONGODB_URI: process.env.MONGODB_URI,
     };
 };
 exports.getEnv = getEnv;

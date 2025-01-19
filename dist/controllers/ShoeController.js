@@ -13,6 +13,7 @@ exports.deleteShoe = exports.updateShoe = exports.createShoe = exports.searchSho
 const ShoeService_1 = require("../Arquitecture/Shoes/ShoeService");
 const validateShoe_1 = require("../utilities/validateShoe");
 const getAllShoes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // console.log(req.cookies['access_token'])
     const allShoes = yield ShoeService_1.shoeService.getShoes();
     res.status(200).json(allShoes);
 });
@@ -35,7 +36,7 @@ const createShoe = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(200).json({ message: "shoe added succesfully" });
     }
     catch (error) {
-        console.log(error);
+        // console.log(error)
         res.status(400).json({ data: 'error' });
     }
 });

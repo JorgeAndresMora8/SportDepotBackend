@@ -12,6 +12,11 @@ export class Repository {
         this.paymentDAO = paymentDAO;
     }
 
+    async getInvoiceByUserId(userId:string): Promise<Invoice[]>{ 
+        const resp = await this.paymentDAO.findByUserId(userId)
+        return resp
+    }
+
     async getAllInvoices(){ 
         const resp = await this.paymentDAO.findAll()
         return resp

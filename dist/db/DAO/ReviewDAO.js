@@ -9,48 +9,52 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.shoeRepository = exports.Repository = void 0;
-const DAO_1 = require("../../db/DAO/DAO");
-class Repository {
-    constructor(shoeDao) {
-        this.shoeDao = shoeDao;
+const Db_1 = require("../Db");
+(0, Db_1.connectDB)();
+class ReviewDAO {
+    constructor(schema) {
+        this.schema = schema;
     }
-    getAllShoes() {
+    findAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.findAll();
+            const resp = yield this.schema.find({});
             return resp;
         });
     }
-    getShoeById(id) {
+    findById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.findById(id);
+            const resp = yield this.schema.findOne({ id: id });
             return resp;
         });
     }
-    addShoe(data) {
+    findByProductId(productId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.create(data);
+            const resp = yield this.schema.find({ productId: productId });
             return resp;
         });
     }
-    searchShoes(params) {
+    create(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.search(params);
-            return resp;
+            return yield this.schema.create({
+                id: data.id,
+                productId: data.productId,
+                userId: data.userId,
+                text: data.text,
+                rating: data.rating,
+                date: data.date,
+                title: data.title
+            });
         });
     }
-    updateShoe(id, data) {
+    update(id, data) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.update(id, data);
-            return resp;
+            return yield this.schema.findOneAndUpdate({ id: id }, { $set: { rating: data.rating, text: data.text } }, { returnNewDocument: true });
         });
     }
-    deleteShoe(id) {
+    delete(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.delete(id);
-            return resp;
+            return yield this.schema.deleteOne({ id: id });
         });
     }
 }
-exports.Repository = Repository;
-exports.shoeRepository = new Repository(DAO_1.shoeDAO);
+exports.default = ReviewDAO;

@@ -9,48 +9,45 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.shoeRepository = exports.Repository = void 0;
-const DAO_1 = require("../../db/DAO/DAO");
-class Repository {
-    constructor(shoeDao) {
-        this.shoeDao = shoeDao;
+exports.userService = exports.UserService = void 0;
+const UserRepository_1 = require("./UserRepository");
+const bcrypt_1 = require("bcrypt");
+class UserService {
+    constructor(repository) {
+        this.repository = repository;
     }
-    getAllShoes() {
+    getUserById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.findAll();
+            const resp = yield this.repository.getUserById(id);
             return resp;
         });
     }
-    getShoeById(id) {
+    loginUser(email, password) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.findById(id);
+            const resp = yield this.repository.getUserByEmail(email);
+            if (!resp)
+                throw new Error('this user doesnt exits');
+            const isValid = yield (0, bcrypt_1.compare)(password, resp.password);
+            // console.log(isValid)
+            if (isValid)
+                return resp;
+            else
+                throw new Error('invalid password');
+        });
+    }
+    registerUser(data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const resp = yield this.repository.createUser(data);
+            // console.log(resp)
             return resp;
         });
     }
-    addShoe(data) {
+    deleteUser(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.create(data);
-            return resp;
-        });
-    }
-    searchShoes(params) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.search(params);
-            return resp;
-        });
-    }
-    updateShoe(id, data) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.update(id, data);
-            return resp;
-        });
-    }
-    deleteShoe(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.delete(id);
+            const resp = yield this.repository.deleteUser(id);
             return resp;
         });
     }
 }
-exports.Repository = Repository;
-exports.shoeRepository = new Repository(DAO_1.shoeDAO);
+exports.UserService = UserService;
+exports.userService = new UserService(UserRepository_1.userRepository);

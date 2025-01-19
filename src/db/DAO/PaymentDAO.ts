@@ -4,6 +4,14 @@ import Invoice from '../../types/Invoice.types'
 
 connectDB()
 
+const GetDate = () => {
+    const today = new Date();
+    const formattedDate = `${String(today.getDate()).padStart(2, "0")}/${String(
+      today.getMonth() + 1
+    ).padStart(2, "0")}/${today.getFullYear()}`;
+    return formattedDate
+  }
+  
 
 class PaymentDAO { 
 
@@ -19,15 +27,20 @@ class PaymentDAO {
     }
 
     async findById(id: string){ 
-        const resp = await this.schema.findOne({id: id})
+        const resp = await this.schema.find({id: id})
         return resp
+    }
+
+    async findByUserId(userId: string){ 
+        const resp = await this.schema.find({userId: userId})
+        return resp;
     }
 
     async create(data: Invoice){ 
            return await this.schema.create({ 
             id: data.id,
             userId: data.user.id,
-            date: data.date,
+            date: GetDate(),
             products: data.products,
             total: data.total,
             paymentMethod: {

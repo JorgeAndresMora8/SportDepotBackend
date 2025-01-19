@@ -9,48 +9,50 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.shoeRepository = exports.Repository = void 0;
-const DAO_1 = require("../../db/DAO/DAO");
-class Repository {
-    constructor(shoeDao) {
-        this.shoeDao = shoeDao;
+const Db_1 = require("../Db");
+(0, Db_1.connectDB)();
+const GetDate = () => {
+    const today = new Date();
+    const formattedDate = `${String(today.getDate()).padStart(2, "0")}/${String(today.getMonth() + 1).padStart(2, "0")}/${today.getFullYear()}`;
+    return formattedDate;
+};
+class PaymentDAO {
+    constructor(schema) {
+        this.schema = schema;
     }
-    getAllShoes() {
+    findAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.findAll();
+            const resp = yield this.schema.find({});
             return resp;
         });
     }
-    getShoeById(id) {
+    findById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.findById(id);
+            const resp = yield this.schema.find({ id: id });
             return resp;
         });
     }
-    addShoe(data) {
+    findByUserId(userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.create(data);
+            const resp = yield this.schema.find({ userId: userId });
             return resp;
         });
     }
-    searchShoes(params) {
+    create(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.search(params);
-            return resp;
-        });
-    }
-    updateShoe(id, data) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.update(id, data);
-            return resp;
-        });
-    }
-    deleteShoe(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.delete(id);
-            return resp;
+            return yield this.schema.create({
+                id: data.id,
+                userId: data.user.id,
+                date: GetDate(),
+                products: data.products,
+                total: data.total,
+                paymentMethod: {
+                    type: data.paymentMode.type,
+                    paymentNetwork: data.paymentMode.paymentNetwork,
+                    installments: data.paymentMode.installments
+                }
+            });
         });
     }
 }
-exports.Repository = Repository;
-exports.shoeRepository = new Repository(DAO_1.shoeDAO);
+exports.default = PaymentDAO;

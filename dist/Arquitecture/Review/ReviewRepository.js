@@ -9,43 +9,48 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.shoeRepository = exports.Repository = void 0;
+exports.reviewRepository = exports.Repository = void 0;
 const DAO_1 = require("../../db/DAO/DAO");
 class Repository {
     constructor(shoeDao) {
         this.shoeDao = shoeDao;
     }
-    getAllShoes() {
+    getAllReviews() {
         return __awaiter(this, void 0, void 0, function* () {
             const resp = yield this.shoeDao.findAll();
             return resp;
         });
     }
-    getShoeById(id) {
+    getReviewById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const resp = yield this.shoeDao.findById(id);
             return resp;
         });
     }
-    addShoe(data) {
+    getReviewByProductId(productId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const resp = yield this.shoeDao.findByProductId(productId);
+            console.log(resp);
+            return resp;
+        });
+    }
+    createReview(data) {
         return __awaiter(this, void 0, void 0, function* () {
             const resp = yield this.shoeDao.create(data);
             return resp;
         });
     }
-    searchShoes(params) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this.shoeDao.search(params);
-            return resp;
-        });
-    }
-    updateShoe(id, data) {
+    // async searchShoes(params: Object){ 
+    //     const resp = await this.shoeDao.search(params)
+    //     return resp
+    // }
+    updateReview(id, data) {
         return __awaiter(this, void 0, void 0, function* () {
             const resp = yield this.shoeDao.update(id, data);
             return resp;
         });
     }
-    deleteShoe(id) {
+    deleteReview(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const resp = yield this.shoeDao.delete(id);
             return resp;
@@ -53,4 +58,4 @@ class Repository {
     }
 }
 exports.Repository = Repository;
-exports.shoeRepository = new Repository(DAO_1.shoeDAO);
+exports.reviewRepository = new Repository(DAO_1.reviewDAO);
