@@ -24,7 +24,7 @@ const http_1 = __importDefault(require("http"));
 const ReviewService_1 = require("./Arquitecture/Review/ReviewService");
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
-    origin: 'http://localhost:5173', // React app URL
+    origin: '*', // React app URL
     credentials: true, // Allow cookies to be sent with requests
 }));
 app.use(express_1.default.json());
@@ -43,7 +43,7 @@ server.listen(3000, () => {
 });
 const io = new socket_io_1.Server(server, {
     cors: {
-        origin: 'http://localhost:5173',
+        origin: '*',
         credentials: true,
     },
 });

@@ -12,7 +12,7 @@ import { reviewService } from './Arquitecture/Review/ReviewService'
 
 const app = express()
 app.use(cors({
-    origin: 'http://localhost:5173',  // React app URL
+    origin: '*',  // React app URL
     credentials: true,               // Allow cookies to be sent with requests
   }));
 app.use(express.json())
@@ -37,7 +37,7 @@ server.listen(3000, () => {
 
 const io = new Server(server, { 
     cors: {
-        origin: 'http://localhost:5173',
+        origin: '*',
         credentials: true,
     },
 })
