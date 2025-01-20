@@ -57,8 +57,7 @@ const io = new socket_io_1.Server(server, {
     cors: {
         origin: [
             'http://localhost:5173', // Origen local (para desarrollo)
-            'https://example.com', // Origen de producción
-            'https://anotherdomain.com', // Otro dominio permitido
+            'https://shiny-daffodil-1739fe.netlify.app', // Origen de producción
         ],
         methods: ['GET', 'POST'], // Métodos permitidos
         credentials: true, // Permitir envío de cookies/credenciales
