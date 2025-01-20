@@ -11,10 +11,24 @@ import http from 'http'
 import { reviewService } from './Arquitecture/Review/ReviewService'
 
 const app = express()
-app.use(cors({
-    origin: '*',  // React app URL
-    credentials: true,               // Allow cookies to be sent with requests
-  }));
+const allowedOrigins = ['http://localhost:5173', 'https://shiny-daffodil-1739fe.netlify.app'];
+
+const corsOptions = {
+  origin: (origin:any, callback:any) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      // Si el origen está permitido
+      callback(null, origin);
+    } else {
+      // Si el origen no está permitido
+      callback(new Error('No permitido por CORS'));
+    }
+  },
+  credentials: true, // Permitir credenciales (cookies, headers de autenticación, etc.)
+};
+
+app.use(cors(corsOptions));
+
+
 app.use(express.json())
 app.use(cookieParser())
 app.use('/shoes', ShoeRouter)
@@ -35,12 +49,17 @@ server.listen(3000, () => {
     console.log('Server is running on port 3000 using nodemon...')
 })
 
-const io = new Server(server, { 
+// Configuración de Socket.IO con múltiples orígenes
+const io = new Server(server, {
     cors: {
-        origin: '*',
-        credentials: true,
+      origin: [
+        'http://localhost:5173', // Origen local (para desarrollo)
+        'https://shiny-daffodil-1739fe.netlify.app',   // Origen de producción
+      ],
+      methods: ['GET', 'POST'], // Métodos permitidos
+      credentials: true,        // Permitir envío de cookies/credenciales
     },
-})
+  });
 
 io.on("connection", (socket) => { 
     

@@ -23,10 +23,21 @@ const payment_1 = require("./routes/payment");
 const http_1 = __importDefault(require("http"));
 const ReviewService_1 = require("./Arquitecture/Review/ReviewService");
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)({
-    origin: '*', // React app URL
-    credentials: true, // Allow cookies to be sent with requests
-}));
+const allowedOrigins = ['http://localhost:5173', 'https://shiny-daffodil-1739fe.netlify.app'];
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            // Si el origen está permitido
+            callback(null, origin);
+        }
+        else {
+            // Si el origen no está permitido
+            callback(new Error('No permitido por CORS'));
+        }
+    },
+    credentials: true, // Permitir credenciales (cookies, headers de autenticación, etc.)
+};
+app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use('/shoes', shoes_1.ShoeRouter);
@@ -41,10 +52,15 @@ const server = http_1.default.createServer(app);
 server.listen(3000, () => {
     console.log('Server is running on port 3000 using nodemon...');
 });
+// Configuración de Socket.IO con múltiples orígenes
 const io = new socket_io_1.Server(server, {
     cors: {
-        origin: '*',
-        credentials: true,
+        origin: [
+            'http://localhost:5173', // Origen local (para desarrollo)
+            'https://shiny-daffodil-1739fe.netlify.app', // Origen de producción
+        ],
+        methods: ['GET', 'POST'], // Métodos permitidos
+        credentials: true, // Permitir envío de cookies/credenciales
     },
 });
 io.on("connection", (socket) => {
