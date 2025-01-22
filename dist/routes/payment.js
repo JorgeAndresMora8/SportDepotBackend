@@ -30,5 +30,6 @@ exports.PaymentRouter.get('/user/:id', (req, res) => __awaiter(void 0, void 0, v
 exports.PaymentRouter.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { user, total, products, bank, installments } = req.body;
     yield invoiceService_1.invoiceService.generateInvoce({ user, total, products, bank, installments });
+    res.set('Access-Control-Allow-Origin', '*');
     res.status(200).json({ state: 'succesfull', message: 'order recieved' });
 }));
