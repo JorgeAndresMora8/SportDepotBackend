@@ -23,7 +23,6 @@ exports.AuthRouter.post("/login", (req, res) => __awaiter(void 0, void 0, void 0
     const { email, password } = req.body;
     try {
         const user = yield UserService_1.userService.loginUser(email, password);
-        console.log(user);
         const token = jsonwebtoken_1.default.sign({ id: user.id, email: user.email }, 'the secret word', {
             expiresIn: '1h'
         });
@@ -46,7 +45,7 @@ exports.AuthRouter.post("/signup", (req, res) => __awaiter(void 0, void 0, void 
             expiresIn: '1h'
         });
         // res.cookie('access_token', token, { httpOnly:true })
-        res.status(200).json({ resp, token });
+        res.status(200).json({ user: resp, token });
     }
     catch (error) {
         console.log(error);

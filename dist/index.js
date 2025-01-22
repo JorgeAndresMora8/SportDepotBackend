@@ -25,17 +25,16 @@ const ReviewService_1 = require("./Arquitecture/Review/ReviewService");
 const app = (0, express_1.default)();
 const allowedOrigins = ['http://localhost:5173', 'https://shiny-daffodil-1739fe.netlify.app'];
 const corsOptions = {
-    // origin: (origin:any, callback:any) => {
-    //   if (!origin || allowedOrigins.includes(origin)) {
-    //     // Si el origen está permitido
-    //     callback(null, origin);
-    //   } else {
-    //     // Si el origen no está permitido
-    //     callback(new Error('No permitido por CORS'));
-    //   }
-    // },
-    origin: '*',
-    // credentials: true, // Permitir credenciales (cookies, headers de autenticación, etc.)
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            // Si el origen está permitido
+            callback(null, origin);
+        }
+        else {
+            // Si el origen no está permitido
+            callback(new Error('No permitido por CORS'));
+        }
+    }
 };
 app.options('*', (0, cors_1.default)(corsOptions)); // Handle preflight requests
 app.use((0, cors_1.default)(corsOptions));
@@ -53,15 +52,10 @@ const server = http_1.default.createServer(app);
 server.listen(3000, () => {
     console.log('Server is running on port 3000 using nodemon...');
 });
-// Configuración de Socket.IO con múltiples orígenes
 const io = new socket_io_1.Server(server, {
     cors: {
-        origin: [
-            'http://localhost:5173', // Origen local (para desarrollo)
-            'https://shiny-daffodil-1739fe.netlify.app', // Origen de producción
-        ],
-        methods: ['GET', 'POST'], // Métodos permitidos
-        credentials: true, // Permitir envío de cookies/credenciales
+        origin: '*',
+        methods: ['GET', 'POST'],
     },
 });
 io.on("connection", (socket) => {
@@ -72,3 +66,16 @@ io.on("connection", (socket) => {
         socket.emit("update_review", newList);
     }));
 });
+// const corsOptions = {
+//   // origin: (origin:any, callback:any) => {
+//   //   if (!origin || allowedOrigins.includes(origin)) {
+//   //     // Si el origen está permitido
+//   //     callback(null, origin);
+//   //   } else {
+//   //     // Si el origen no está permitido
+//   //     callback(new Error('No permitido por CORS'));
+//   //   }
+//   // },
+//   origin:'*', 
+//   // credentials: true, // Permitir credenciales (cookies, headers de autenticación, etc.)
+// };

@@ -10,14 +10,15 @@ AuthRouter.post("/login", async (req, res) => {
   // console.log(req.body)
 
   const { email, password } = req.body
+  
   try {
     const user = await userService.loginUser(email, password)
-    console.log(user)
     const token = jwt.sign({id:user.id, email: user.email}, 'the secret word',{ 
       expiresIn:'1h'
     })
     // res.cookie('access_token', token)
     res.status(200).json({user, token})
+    
   } catch (error:any) {
     // console.log(error)
     res.status(400).json({ error:error.message })
@@ -37,7 +38,7 @@ AuthRouter.post("/signup", async (req, res) => {
       expiresIn:'1h'
     })
     // res.cookie('access_token', token, { httpOnly:true })
-    res.status(200).json({resp, token})
+    res.status(200).json({user:resp, token})
   }catch(error: any){
     console.log(error)
     res.status(400).json({ message: error.message })
