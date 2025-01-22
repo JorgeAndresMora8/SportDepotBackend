@@ -24,7 +24,7 @@ const corsOptions = {
   //   }
   // },
   origin:'*', 
-  credentials: true, // Permitir credenciales (cookies, headers de autenticación, etc.)
+  // credentials: true, // Permitir credenciales (cookies, headers de autenticación, etc.)
 };
 
 app.options('*', cors(corsOptions)); // Handle preflight requests

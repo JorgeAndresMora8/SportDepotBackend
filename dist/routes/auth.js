@@ -27,8 +27,8 @@ exports.AuthRouter.post("/login", (req, res) => __awaiter(void 0, void 0, void 0
         const token = jsonwebtoken_1.default.sign({ id: user.id, email: user.email }, 'the secret word', {
             expiresIn: '1h'
         });
-        res.cookie('access_token', token);
-        res.status(200).json(user);
+        // res.cookie('access_token', token)
+        res.status(200).json({ user, token });
     }
     catch (error) {
         // console.log(error)
@@ -45,8 +45,8 @@ exports.AuthRouter.post("/signup", (req, res) => __awaiter(void 0, void 0, void 
         const token = jsonwebtoken_1.default.sign({ id: user.id, email: user.email }, 'the secret word', {
             expiresIn: '1h'
         });
-        res.cookie('access_token', token, { httpOnly: true });
-        res.status(200).json(resp);
+        // res.cookie('access_token', token, { httpOnly:true })
+        res.status(200).json({ resp, token });
     }
     catch (error) {
         console.log(error);
