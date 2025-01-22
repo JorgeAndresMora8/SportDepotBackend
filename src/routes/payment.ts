@@ -27,7 +27,7 @@ PaymentRouter.get('/user/:id', async (req, res) => {
 PaymentRouter.post('/', async (req, res) => { 
     const { user, total, products, bank, installments } = req.body;
     await invoiceService.generateInvoce({user, total, products, bank, installments})
-    res.set('Access-Control-Allow-Origin', '*');
+    // res.set('Access-Control-Allow-Origin', '*');
     res.status(200).json({ state:'succesfull', message:'order recieved' })
 
 })
