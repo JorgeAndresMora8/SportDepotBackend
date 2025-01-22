@@ -6,7 +6,7 @@ import networkLink from '../utilities/networkLink';
 export const sendEmail = async (to: string, subject: string, data:any): Promise<void> => {
 
   // Path to the EJS template
-  const templatePath = path.join(__dirname, 'templates', 'mail.ejs');
+  const templatePath = path.join(__dirname, 'mail.ejs');
   const { user, products, totalPrice, network, installments } = data
   
 
