@@ -11,7 +11,7 @@ import http from 'http'
 import { reviewService } from './Arquitecture/Review/ReviewService'
 
 const app = express()
-const allowedOrigins = ['http://localhost:5173', 'https://shiny-daffodil-1739fe.netlify.app'];
+const allowedOrigins = ['http://localhost:5173', 'https://shiny-daffodil-1739fe.netlify.app/'];
 
 const corsOptions = {
   origin: (origin:any, callback:any) => {
@@ -26,6 +26,7 @@ const corsOptions = {
   credentials: true, // Permitir credenciales (cookies, headers de autenticación, etc.)
 };
 
+app.options('*', cors(corsOptions)); // Handle preflight requests
 app.use(cors(corsOptions));
 
 

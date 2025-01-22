@@ -23,7 +23,7 @@ const payment_1 = require("./routes/payment");
 const http_1 = __importDefault(require("http"));
 const ReviewService_1 = require("./Arquitecture/Review/ReviewService");
 const app = (0, express_1.default)();
-const allowedOrigins = ['http://localhost:5173', 'https://shiny-daffodil-1739fe.netlify.app'];
+const allowedOrigins = ['http://localhost:5173', 'https://shiny-daffodil-1739fe.netlify.app/'];
 const corsOptions = {
     origin: (origin, callback) => {
         if (!origin || allowedOrigins.includes(origin)) {
@@ -37,6 +37,7 @@ const corsOptions = {
     },
     credentials: true, // Permitir credenciales (cookies, headers de autenticación, etc.)
 };
+app.options('*', (0, cors_1.default)(corsOptions)); // Handle preflight requests
 app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
