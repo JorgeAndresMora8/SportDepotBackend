@@ -25,18 +25,9 @@ const ReviewService_1 = require("./Arquitecture/Review/ReviewService");
 const app = (0, express_1.default)();
 const allowedOrigins = ['http://localhost:5173', 'https://shiny-daffodil-1739fe.netlify.app'];
 const corsOptions = {
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-            // Si el origen está permitido
-            callback(null, origin);
-        }
-        else {
-            // Si el origen no está permitido
-            callback(new Error('No permitido por CORS'));
-        }
-    }
+    origin: '*'
 };
-app.options('*', (0, cors_1.default)(corsOptions)); // Handle preflight requests
+// app.options('*', cors(corsOptions)); // Handle preflight requests
 app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());

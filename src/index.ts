@@ -14,18 +14,10 @@ const app = express()
 const allowedOrigins = ['http://localhost:5173', 'https://shiny-daffodil-1739fe.netlify.app'];
 
 const corsOptions = {
-  origin: (origin:any, callback:any) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      // Si el origen está permitido
-      callback(null, origin);
-    } else {
-      // Si el origen no está permitido
-      callback(new Error('No permitido por CORS'));
-    }
-  }
+  origin: '*'
 };
 
-app.options('*', cors(corsOptions)); // Handle preflight requests
+// app.options('*', cors(corsOptions)); // Handle preflight requests
 app.use(cors(corsOptions));
 
 
