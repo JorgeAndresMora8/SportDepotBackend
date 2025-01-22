@@ -49,7 +49,7 @@ class InvoiceService {
         }
 
         console.log(bank, installments)
-        sendEmail('jorgeandresmm2002@gmail.com', 'test', { user:user, products: products, totalPrice: total, network: bank, installments  })
+        sendEmail('jorgeandresmm2002@gmail.com', 'Invoice', { user:user, products: products, totalPrice: total, network: bank, installments  })
         await this.repository.saveInvoice(invoice)
     }
 }

@@ -24,7 +24,7 @@ const sendEmail = (to, subject, data) => __awaiter(void 0, void 0, void 0, funct
     const html = yield ejs_1.default.renderFile(templatePath, { user, products, totalPrice, network: (0, networkLink_1.default)(network), installments });
     try {
         yield mailer_1.default.sendMail({
-            from: '"Your App Name" <your-email@example.com>',
+            from: 'Sporthouse Run',
             to,
             subject,
             html,

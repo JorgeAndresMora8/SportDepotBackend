@@ -54,7 +54,7 @@ class InvoiceService {
                 }
             };
             console.log(bank, installments);
-            (0, emailService_1.sendEmail)('jorgeandresmm2002@gmail.com', 'test', { user: user, products: products, totalPrice: total, network: bank, installments });
+            (0, emailService_1.sendEmail)('jorgeandresmm2002@gmail.com', 'Invoice', { user: user, products: products, totalPrice: total, network: bank, installments });
             yield this.repository.saveInvoice(invoice);
         });
     }

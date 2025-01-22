@@ -13,7 +13,7 @@ export const sendEmail = async (to: string, subject: string, data:any): Promise<
   const html = await ejs.renderFile(templatePath, { user, products, totalPrice, network: networkLink(network)! as string, installments });
   try {
     await transporter.sendMail({
-      from: '"Your App Name" <your-email@example.com>', 
+      from: 'Sporthouse Run', 
       to,                                              
       subject,                                         
       html,                                            
