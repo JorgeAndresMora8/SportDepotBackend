@@ -27,6 +27,12 @@ class Repository {
             return resp;
         });
     }
+    getShoesByIdList(list) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const resp = yield this.shoeDao.findByIdList(list);
+            return resp;
+        });
+    }
     addShoe(data) {
         return __awaiter(this, void 0, void 0, function* () {
             const resp = yield this.shoeDao.create(data);

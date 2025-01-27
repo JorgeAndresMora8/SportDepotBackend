@@ -19,6 +19,10 @@ class ShoeService {
         return await this.repository.getShoeById(id)
     }
 
+    async getShoeByIdList(list: string[]){ 
+        return await this.repository.getShoesByIdList(list)
+    }
+
     async searchShoes(params: Object){ 
         return await this.repository.searchShoes(params)
     }

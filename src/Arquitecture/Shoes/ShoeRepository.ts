@@ -22,6 +22,11 @@ export class Repository {
         return resp
     }
 
+    async getShoesByIdList(list: string[]): Promise<Shoe[]>{ 
+        const resp = await this.shoeDao.findByIdList(list)
+        return resp
+    }
+
     async addShoe( data: Shoe ): Promise<Shoe[] | void>{
         const resp = await this.shoeDao.create(data)
         return resp

@@ -27,6 +27,12 @@ class ShoeDAO {
             return resp;
         });
     }
+    findByIdList(list) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const resp = yield this.schema.find({ id: { $in: list } });
+            return resp;
+        });
+    }
     search(params) {
         return __awaiter(this, void 0, void 0, function* () {
             let mongoDbParams = [];

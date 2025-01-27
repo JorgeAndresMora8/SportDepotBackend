@@ -24,6 +24,11 @@ class ShoeDAO {
         return resp
     }
 
+    async findByIdList(list: string[]){ 
+        const resp = await this.schema.find({id: {$in: list}})
+        return resp;
+    }
+
     async search(params: any){ 
 
         let mongoDbParams = []

@@ -5,7 +5,8 @@ import {
     createShoe, 
     updateShoe, 
     deleteShoe,
-    searchShoes
+    searchShoes,
+    getShoeList
  } from '../controllers/ShoeController'
 
 export const ShoeRouter = Router()
@@ -14,6 +15,7 @@ export const ShoeRouter = Router()
 
 //Get all shoes
 ShoeRouter.get('/', getAllShoes)
+ShoeRouter.post('/list', getShoeList)
 ShoeRouter.get('/search', searchShoes)
 ShoeRouter.get('/:id', getShoesById)
 ShoeRouter.post('/', createShoe)

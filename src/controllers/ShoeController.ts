@@ -9,6 +9,12 @@ export const getAllShoes = async (req: Request, res: Response) => {
     res.status(200).json(allShoes)
 }
 
+export const getShoeList = async (req: Request, res: Response) => { 
+    const { list } = req.body; 
+    const shoes = await shoeService.getShoeByIdList(list)
+    res.status(200).json(shoes)
+}
+
 export const getShoesById = async (req: Request, res: Response) => { 
     const shoe = await shoeService.getShoeById(req.params.id) 
     res.status(200).json(shoe)

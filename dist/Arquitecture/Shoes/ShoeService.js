@@ -25,6 +25,11 @@ class ShoeService {
             return yield this.repository.getShoeById(id);
         });
     }
+    getShoeByIdList(list) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield this.repository.getShoesByIdList(list);
+        });
+    }
     searchShoes(params) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield this.repository.searchShoes(params);

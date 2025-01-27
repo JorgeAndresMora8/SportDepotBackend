@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteShoe = exports.updateShoe = exports.createShoe = exports.searchShoes = exports.getShoesById = exports.getAllShoes = void 0;
+exports.deleteShoe = exports.updateShoe = exports.createShoe = exports.searchShoes = exports.getShoesById = exports.getShoeList = exports.getAllShoes = void 0;
 const ShoeService_1 = require("../Arquitecture/Shoes/ShoeService");
 const validateShoe_1 = require("../utilities/validateShoe");
 const getAllShoes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -18,6 +18,12 @@ const getAllShoes = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     res.status(200).json(allShoes);
 });
 exports.getAllShoes = getAllShoes;
+const getShoeList = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { list } = req.body;
+    const shoes = yield ShoeService_1.shoeService.getShoeByIdList(list);
+    res.status(200).json(shoes);
+});
+exports.getShoeList = getShoeList;
 const getShoesById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const shoe = yield ShoeService_1.shoeService.getShoeById(req.params.id);
     res.status(200).json(shoe);

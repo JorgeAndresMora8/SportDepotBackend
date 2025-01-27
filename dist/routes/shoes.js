@@ -6,6 +6,7 @@ const ShoeController_1 = require("../controllers/ShoeController");
 exports.ShoeRouter = (0, express_1.Router)();
 //Get all shoes
 exports.ShoeRouter.get('/', ShoeController_1.getAllShoes);
+exports.ShoeRouter.post('/list', ShoeController_1.getShoeList);
 exports.ShoeRouter.get('/search', ShoeController_1.searchShoes);
 exports.ShoeRouter.get('/:id', ShoeController_1.getShoesById);
 exports.ShoeRouter.post('/', ShoeController_1.createShoe);
