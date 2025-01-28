@@ -67,7 +67,6 @@
                 <div>
                     <h3><%= product.name %></h3>
                     <p>Price: $<%= product.price %></p>
-                    <p>Units: <%= product.quantity %></p>
                 </div>
             </div>
         <% }); %>
@@ -76,7 +75,6 @@
     <div class="total">
         <h2>Total: $<%= totalPrice.toFixed(2) %></h2>
         <img class="network-img" src="<%= network %>" alt="Bank Network">
-        <h2>installments: <%= installments %> no interest</h2>
     </div>
 
     <footer>
